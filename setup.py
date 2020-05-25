@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="example-pkg-donaldstierman", # Replace with your own username
-    version="0.0.2",
+    name="example_pkg_donaldstierman", # Replace with your own username
+    version="0.0.6",
     author="Donald Stierman",
     author_email="stiermandon@gmail.com",
     description="A small example package",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/donald/sample_package_project",
+    url="https://github.com/donald/example_pkg_project",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
