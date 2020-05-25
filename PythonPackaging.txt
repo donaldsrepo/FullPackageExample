@@ -1,0 +1,162 @@
+sources: https://packaging.python.org/tutorials/packaging-projects/
+         https://www.tutorialsteacher.com/python/python-package
+
+github location:
+    https://github.com/donaldstierman/FullPackageExample
+    
+PyPI location:
+    https://test.pypi.org/simple/  example-pkg-donaldstierman
+
+Setting up a python package
+
+example structure:
+
+├── namespace
+│   └── mypackage
+│       ├── __init__.py
+│       └── mod1.py
+├── setup.py
+└── tests
+    └── test_mod1.py
+    
+    
+0) install setuptools
+1) create python code
+2) create package
+3) upload package to PyPI
+4) download/install to conda env
+
+0) Install package setup tools 
+    pip install --user --upgrade setuptools wheel
+    pip install --user --upgrade twine
+    
+1) Create python code 
+    FullPackageExample/
+      example_pkg/
+        __init__.py (can also be blank)
+        full_package_example.py
+        
+            The __init__.py file is normally kept empty. However, it can also be used to choose specific functions from modules in the package folder and make them available for import. Modify __init__.py as below:
+
+            __init__.py
+            from .functions import average, power
+            from .greet import SayHello
+            
+      tests/ (leave blank for now)
+      setup.py ( for setuptools config)
+      LICENSE
+      README.md
+      
+      setup.py:
+        import setuptools
+
+        with open("README.md", "r") as fh:
+            long_description = fh.read()
+
+        setuptools.setup(
+            name="example_pkg_USERNAME", # Replace with your own username
+            version="0.0.1",
+            author="Example Author",
+            author_email="author@example.com",
+            description="A small example package",
+            long_description=long_description,
+            long_description_content_type="text/markdown",
+            url="https://github.com/pypa/sampleproject",
+            packages=setuptools.find_packages(),
+            classifiers=[
+                "Programming Language :: Python :: 3",
+                "License :: OSI Approved :: MIT License",
+                "Operating System :: OS Independent",
+            ],
+            python_requires='>=3.6',
+        )
+      
+      LICENSE:
+        Copyright (c) 2018 The Python Packaging Authority
+
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+      README.md:
+        # Example Package
+
+        This is a simple example package. You can use
+        [Github-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
+        to write your content.      
+
+2) Create Package
+    python setup.py sdist bdist_wheel 
+
+    (test) C:\DataScience\Repo\Templates\FullPackageExample>dir dist\
+     Volume in drive C is Windows
+     Volume Serial Number is DC83-883D
+
+     Directory of C:\DataScience\Repo\Templates\FullPackageExample\dist
+
+    05/25/2020  08:06 PM    <DIR>          .
+    05/25/2020  08:06 PM    <DIR>          ..
+    05/25/2020  08:06 PM             3,753 example_pkg_donaldstierman-0.0.9-py3-none-any.whl
+    05/25/2020  08:06 PM             2,488 example_pkg_donaldstierman-0.0.9.tar.gz
+                   8 File(s)         24,817 bytes
+                   2 Dir(s)  34,391,404,544 bytes free
+
+3) upload package to PyPI
+    (ds_tensorflow) C:\DataScience\Repo\Templates\FullPackageExample>python -m twine upload --repository testpypi dist/*
+    Set your username to __token__
+    Set your password to the token value, including the pypi- prefix pypi-AgENdGVzdC5weXBpLm9yZwIkZGI0ODdjODItYzUyZi00YzFjLTk4OTctZDAxMDNiMjQyN2E5AAIleyJwZXJtaXNzaW9ucyI6ICJ1c2VyIiwgInZlcnNpb24iOiAxfQAABiBw7o4YiN7h2P2Tiozam_HJM9vEPOEJ1Wl4rryQf7nwFg
+    
+    Uploading distributions to https://test.pypi.org/legacy/
+    Enter your username: __token__
+    Enter your password:
+    Uploading example_pkg_donaldstierman-0.0.9-py3-none-any.whl
+    100%|█████████████████████████████████████████████████████████████████████████████| 8.53k/8.53k [00:00<00:00, 9.30kB/s]
+    Uploading example_pkg_donaldstierman-0.0.9.tar.gz
+    100%|█████████████████████████████████████████████████████████████████████████████| 7.27k/7.27k [00:00<00:00, 7.92kB/s]
+
+    View at:
+    https://test.pypi.org/project/example-pkg-donaldstierman/0.0.9/
+        
+4) download/install to conda env 
+    pip install -i https://test.pypi.org/simple/  example-pkg-donaldstierman==0.0.10
+    
+    (test) C:\DataScience\Repo\Templates\FullPackageExample>conda list
+    # packages in environment at C:\Users\iowahawk89\miniconda3\envs\test:
+    #
+    # Name                    Version                   Build  Channel
+    certifi                   2020.4.5.1               py36_0
+    example-pkg-donaldstierman 0.0.9                    pypi_0    pypi
+        
+python script usage:
+
+from example_pkg import test_sum, dummy_function
+print(test_sum())   
+x = dummy_function(1,2)
+print(x)     
+      
+script to create framework:
+---------------------------
+mkdir FullPackageExample
+cd FullPackageExample/
+touch setup.py
+touch LICENSE
+touch README.md
+mkdir example_pkg
+touch example_pkg/__init__.py
+mkdir tests
+git init
+...
