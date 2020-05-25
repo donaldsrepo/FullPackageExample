@@ -5,4 +5,4 @@ This is a simple example package. You can use
 to write your content.
 
 You can install this from PyPI:
-    pip install -i https://test.pypi.org/simple/ example-pkg-donaldstierman==0.0.1
+    pip install -i https://test.pypi.org/simple/example-pkg-donaldstierman==0.0.1
