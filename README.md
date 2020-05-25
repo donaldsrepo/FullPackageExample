@@ -17,9 +17,13 @@ pip install unittest
 ### Installing
 
 How to use:
+
 from example_pkg import test_sum, dummy_function
+
 print(test_sum())   
+
 x = dummy_function(1,2)
+
 print(x)    
 
 ## Built With
@@ -28,7 +32,7 @@ print(x)
 
 ## Authors
 
-* **Donald Stierman** - *Initial work* - [PurpleBooth](https://github.com/donaldstierman)
+* **Donald Stierman** - *Initial work* - [donaldstierman](https://github.com/donaldstierman)
 
 ## License
 
